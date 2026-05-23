@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU4MADA | Education For Madagascar Prototype</title>
+    <style>
+        /* EDU4MADA EXACT BRAND COLOR PALETTE */
+        :root {
+            --primary-green: #195301;
+            --soft-sand: #eeebd9;
+            --accent-teal: #006C65;
+            --charcoal-text: #535353;
+            --light-gray: #D5D5D5;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--soft-sand);
+            color: var(--charcoal-text);
+            line-height: 1.65;
+        }
+
+        /* NAVIGATION & STICKY HEADER */
+        header {
+            background: var(--primary-green);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo-area {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 2.2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--soft-sand);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* ACTIONS */
+        .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--soft-sand);
+            color: var(--soft-sand);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .lang-toggle:hover {
+            background: var(--soft-sand);
+            color: var(--primary-green);
+        }
+
+        .donate-btn {
+            background: var(--accent-teal);
+            color: var(--white) !important;
+            padding: 0.7rem 1.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .donate-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        /* HERO ZONE */
+        .hero-banner {
+            background: linear-gradient(rgba(25, 83, 1, 0.75), rgba(25, 83, 1, 0.45)), 
+                        url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200') no-repeat center center/cover;
+            padding: 8rem 2rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: var(--soft-sand);
+        }
+
+        /* MAIN CONTENT SECTION */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            color: var(--primary-green);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--charcoal-text);
+            font-style: italic;
+        }
+
+        /* HUBS & PROJECTS GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-teal);
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-card h3 {
+            color: var(--primary-green);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .learn-more {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .learn-more:hover {
+            text-decoration: underline;
+        }
+
+        /* DUAL INTEGRATION CALLOUTS (BLOG & SHOP) */
+        .features-split {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-block {
+            background: var(--white);
+            border-top: 4px solid var(--accent-teal);
+            padding: 2.5rem;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .feature-block h3 {
+            color: var(--primary-green);
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #2a2a2a;
+            color: var(--light-gray);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+            border-top: 5px solid var(--primary-green);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo-area">EDUCATION FOR MADAGASCAR</a>
+            <ul class="nav-links">
+                <li><a href="#" data-en="Our Programs" data-fr="Nos Programmes">Our Programs</a></li>
+                <li><a href="#" data-en="Impact Blog" data-fr="Le Blog">Impact Blog</a></li>
+                <li><a href="#" data-en="Artisanal Shop" data-fr="Boutique Solidaire">Artisanal Shop</a></li>
+                <li><button class="lang-toggle" onclick="switchLanguage()">FR</button></li>
+                <li><a href="#" class="donate-btn" data-en="Donate" data-fr="Faire un Don">Donate</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1 data-en="Rebuilding Futures Through Education" data-fr="Reconstruire l'Avenir par l'Éducation">Rebuilding Futures Through Education</h1>
+            <p data-en="Providing resources, skills, and autonomy to the young talents of Madagascar." data-fr="Offrir des ressources, des compétences et de l'autonomie aux jeunes talents de Madagascar.">Providing resources, skills, and autonomy to the young talents of Madagascar.</p>
+            <a href="#" class="donate-btn" data-en="Support Our Vision" data-fr="Soutenir Notre Vision">Support Our Vision</a>
+        </div>
+    </section>
+
+    <main class="main-wrapper">
+        
+        <div class="section-header">
+            <h2 data-en="Sustainable On-Ground Initiatives" data-fr="Initiatives Durables Sur le Terrain">Sustainable On-Ground Initiatives</h2>
+            <p data-en="Click a program to review deep impact data." data-fr="Cliquez sur un programme pour voir les données d'impact réelles.">Click a program to review deep impact data.</p>
+        </div>
+
+        <div class="projects-grid">
+            <article class="project-card">
+                <div>
+                    <div class="card-meta">Tech & Coding</div>
+                    <h3>Project CARE</h3>
+                    <p data-en="Empowering the youth to become creators, not just consumers of technology using platforms like Swift Playground." 
+                       data-fr="Donner aux jeunes les moyens de devenir des créateurs, et pas seulement des consommateurs de technologie via des plateformes comme Swift Playground.">
+                       Empowering the youth to become creators, not just consumers of technology using platforms like Swift Playground.
+                    </p>
+                </div>
+                <a href="#" class="learn-more" data-en="View Project Dashboard →" data-fr="Voir le Tableau de Bord →">View Project Dashboard →</a>
+            </article>
+
+            <article class="project-card">
+                <div>
+                    <div class="card-meta" style="color:var(--primary-green)">Hygiene ∙ Sustainability ∙ Eco-sanitation</div>
+                    <h3>Project WASH</h3>
+                    <p data-en="Promoting waterless dry toilets to save water, restore nutrients to the soil, and protect local school ecosystems." 
+                       data-fr="Promouvoir les toilettes sèches sans eau pour économiser l'eau, restituer les nutriments au sol et protéger les écosystèmes scolaires locaux.">
+                       Promoting waterless dry toilets to save water, restore nutrients to the soil, and protect local school ecosystems.
+                    </p>
+                </div>
+                <a href="#" class="learn-more" data-en="View Project Dashboard →" data-fr="Voir le Tableau de Bord →">View Project Dashboard →</a>
+            </article>
+
+            <article class="project-card">
+                <div>
+                    <div class="card-meta">Reforestation ∙ Restoration</div>
+                    <h3>Project SILVA</h3>
+                    <p data-en="Planting edible tropical forests that absorb carbon emissions while sustainably securing food for future generations." 
+                       data-fr="Planter des forêts tropicales comestibles qui absorbent les émissions de carbone tout en sécurisant l'alimentation des générations futures.">
+                       Planting edible tropical forests that absorb carbon emissions while sustainably securing food for future generations.
+                    </p>
+                </div>
+                <a href="#" class="learn-more" data-en="View Project Dashboard →" data-fr="Voir le Tableau de Bord →">View Project Dashboard →</a>
+            </article>
+        </div>
+
+        <div class="features-split">
+            <section class="feature-block">
+                <h3 data-en="📰 The Impact Journal" data-fr="📰 Le Journal d'Impact (Blog)">📰 The Impact Journal</h3>
+                <p data-en="Real stories from volunteers and project managers. Directly tied to your donor dashboard to see where your money goes instantly."
+                   data-fr="Récits authentiques de bénévoles et de chefs de projet. Directement reliés au tableau de bord des donateurs pour voir l'impact de vos dons.">
+                   Real stories from volunteers and project managers. Directly tied to your donor dashboard to see where your money goes instantly.
+                </p>
+                <br>
+                <a href="#" class="learn-more" data-en="Explore Stories" data-fr="Explorer les Articles">Explore Stories</a>
+            </section>
+
+            <section class="feature-block" style="border-top-color: var(--primary-green);">
+                <h3 data-en="🛍️ Malagasy Artisanal Marketplace" data-fr="🛍️ Boutique Artisanale Malgache">🛍️ Malagasy Artisanal Marketplace</h3>
+                <p data-en="Purchasing local art, fabrics, and craftwork directly funds school fees and daily nutrition program pipelines."
+                   data-fr="L'achat d'art local, de tissus et d'artisanat finance directement les frais de scolarité et les programmes de repas quotidiens.">
+                   Purchasing local art, fabrics, and craftwork directly funds school fees and daily nutrition program pipelines.
+                </p>
+                <br>
+                <a href="#" class="learn-more" data-en="Browse Collection" data-fr="Découvrir la Collection">Browse Collection</a>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Education For Madagascar. UK Registered Charity No. 1167115.</p>
+        <p style="font-size: 0.8rem; opacity: 0.6;">Designed transparently to optimize resource tracking and volunteer coordination.</p>
+    </footer>
+
+    <script>
+        let currentLanguageState = 'en';
+
+        function switchLanguage() {
+            currentLanguageState = currentLanguageState === 'en' ? 'fr' : 'en';
+            
+            // Toggle the controller display
+            document.querySelector('.lang-toggle').innerText = currentLanguageState === 'en' ? 'FR' : 'EN';
+
+            // Swap all translated texts instantly
+            document.querySelectorAll('[data-en]').forEach(element => {
+                element.innerText = element.getAttribute(`data-${currentLanguageState}`);
+            });
+        }
+    </script>
+</body>
+</html>
