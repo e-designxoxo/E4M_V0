@@ -1,39 +1,16 @@
-/* --- NAVBAR LOGO CONFIGURATION (UPDATED) --- */
-    .navbar-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      text-decoration: none;
-    }
-    
-    /* Elegant green circle container with padding */
-    .logo-circle-container {
-      width: 46px;              /* Slightly larger for better definition */
-      height: 46px;
-      background: var(--green);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 5px;             /* Creates a beautiful boundary around your logo */
-      flex-shrink: 0;
-      box-shadow: 0 2px 10px rgba(25, 83, 1, 0.12);
-    }
-    
-    /* Makes the full image fit sharply without zooming or blurring */
-    .navbar-brand-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;      /* "Zooms out" to display the full artwork crisply */
-    }
-    
-    /* Styled text next to the logo: Now in Green and Charter Font */
-    .navbar-brand-text {
-      font-family: var(--font-display); /* Switches to premium Charter font */
-      color: var(--green);              /* Switches color to your primary brand green */
-      font-size: 0.95rem;                /* Adjusted sizing for elegant serif display */
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: 0.02em;
-    }
+/* Ajustement de la taille du nouveau logo dans la navbar */
+.logo-img-brand {
+  height: 40px;          /* Ajustez cette hauteur selon le rendu visuel souhaité */
+  width: auto;           /* Garde les proportions de l'image intactes */
+  object-fit: contain;   /* Évite que l'image ne soit écrasée ou déformée */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Optionnel : Assurer l'alignement parfait entre l'image et le texte à côté */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;             /* Crée un espace élégant entre l'image et le texte */
+  text-decoration: none;
+}
