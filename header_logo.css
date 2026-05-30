@@ -1,0 +1,16 @@
+/* Ajustement de la taille du nouveau logo dans la navbar */
+.logo-img-brand {
+  height: 40px;          /* Ajustez cette hauteur selon le rendu visuel souhaité */
+  width: auto;           /* Garde les proportions de l'image intactes */
+  object-fit: contain;   /* Évite que l'image ne soit écrasée ou déformée */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Optionnel : Assurer l'alignement parfait entre l'image et le texte à côté */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;             /* Crée un espace élégant entre l'image et le texte */
+  text-decoration: none;
+}
