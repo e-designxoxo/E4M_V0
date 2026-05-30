@@ -119,35 +119,36 @@
       gap: 0.85rem;
       text-decoration: none;
     }
-    /* Le conteneur cercle vert ajusté pour l'image */
+    /* Adjusted green cicle contener for the image */
     .logo-circle-container {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       background: var(--green);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden; /* Coupe l'image pour qu'elle reste dans le cercle */
+      padding: 19px;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(25, 83, 1, 0.15);
+      box-shadow: 0 2px 8px rgba(25, 83, 1, 0.12);
     }
-    /* Le comportement de l'image dans le cercle */
+    /* Makes the full image fit sharply without zooming or blurring */
     .navbar-brand-img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Recadre proprement sans déformer */
+      object-fit: contain; /* Dsplays the full logo artwork */
       object-position: center;
     }
-    /* Le texte de la marque à côté */
+    /* Styled text next to logo */
     .navbar-brand-text {
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 500;
-      line-height: 1.2;
-      letter-spacing: 0.04em;
+      font-family: var(--font-display);
+      color-var: var(--green);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
-      color: var(--charcoal);
     }
     nav { margin-left: auto; }
     nav ul {
