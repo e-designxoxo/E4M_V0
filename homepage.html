@@ -600,7 +600,7 @@
 
     /* ─── FADE-IN ANIMATION ──────────────────────────── */
     .fade-up {
-      opacity: 0;
+      opacity: 1;
       transform: translateY(24px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
@@ -893,30 +893,42 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // Sticky navbar shadow
+<script>
+    // 1. Sticky navbar shadow
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    if (navbar) {
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+      });
+    }
 
-    // Donate amount toggle
+    // 2. Donate amount toggle
     document.querySelectorAll('.amount-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const label = document.querySelector('.donate-section .btn-cream');
-        const val = btn.textContent === 'Other' ? '' : btn.textContent;
-        if (val) label.textContent = `Donate ${val} now`;
+        if (label) {
+          const val = btn.textContent === 'Other' ? '' : btn.textContent;
+          label.textContent = val ? `Donate ${val} now` : 'Donate now';
+        }
       });
     });
 
-    // Scroll fade-in
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    // 3. Clean Scroll fade-in observer
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { 
+          if (e.isIntersecting) e.target.classList.add('visible'); 
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+    }
   </script>
+
+</body>
+</html>
 </body>
 </html>
