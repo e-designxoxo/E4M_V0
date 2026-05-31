@@ -14,6 +14,8 @@
       --teal:       #006C65;
       --charcoal:   #535353;
       --silver:     #D5D5D5;
+      --gold:       #EFBF04; 
+      
       --white:      #ffffff;
 
       --font-display: "Charter", Georgia, serif;               /* Pour les titres */
@@ -610,7 +612,7 @@
   <!-- TOP BAR -->
   <div class="top-bar">
     <div class="container">
-      <span>UK Registered Charity #1167115 &nbsp;·&nbsp; Madagascar NGO &nbsp;·&nbsp; Association France SIREN 852427939</span>
+      <span>UK Registered Charity #1167115 &nbsp;·&nbsp; Malagasy NGO &nbsp;· &nbsp; Association France SIREN 85242793900016</span>
       <div class="lang-switch">
         <a href="#">EN</a>
         <a href="#">FR</a>
@@ -877,7 +879,7 @@
           <ul>
             <li><a href="mailto:contact@educationformadagascar.org">contact@educationformadagascar.org</a></li>
             <li><a href="#">23 Milner Drive, Cobham<br>KT11 2EZ, United Kingdom</a></li>
-            <li style="margin-top:0.8rem; font-size:0.78rem; opacity:0.6;">UK Charity #1167115<br>FR SIREN 852427939<br>MG NIF 4002796057</li>
+            <li style="margin-top:0.8rem; font-size:0.78rem; opacity:0.6;">UK Charity #1167115<br>FR SIREN 85242793900016 <br>MG NIF 4002796057</li>
           </ul>
         </div>
       </div>
@@ -893,28 +895,124 @@
   </footer>
 
   <script>
-    // Sticky navbar shadow
+    <!-- ═══════════════════════════════════════════════════════════
+       COMBINED INTERACTIVE ENGINE 
+       ═══════════════════════════════════════════════════════════ -->
+
+    /* ── 1. Sticky Shadow on Scroll ─────────────────────────── */
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    if (navbar) {
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('is-scrolled', window.scrollY > 40);
+      }, { passive: true });
+    }
+
+    /* ── 2. Desktop Dropdown Toggle ─────────────────────────── */
+    function toggleNav(itemId) {
+      const clicked = document.getElementById(itemId);
+      if (!clicked) return; // Error guard
+
+      const isOpen = clicked.classList.contains('is-open');
+
+      // Close all open items first
+      document.querySelectorAll('.nav__item.is-open').forEach(el => {
+        el.classList.remove('is-open');
+        const trigger = el.querySelector('[aria-expanded]');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      });
+
+      // If it wasn't open, open it
+      if (!isOpen) {
+        clicked.classList.add('is-open');
+        const trigger = clicked.querySelector('[aria-expanded]');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    /* Close dropdown when clicking outside the navbar */
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav__item')) {
+        document.querySelectorAll('.nav__item.is-open').forEach(el => {
+          el.classList.remove('is-open');
+          const trigger = el.querySelector('[aria-expanded]');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        });
+      }
     });
 
-    // Donate amount toggle
+    /* Close dropdown on Escape key */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.nav__item.is-open').forEach(el => {
+          el.classList.remove('is-open');
+          const trigger = el.querySelector('[aria-expanded]');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          
+          const link = el.querySelector('.nav__link');
+          if (link) link.focus();
+        });
+      }
+    });
+
+    /* ── 3. Mobile Drawer Toggle ─────────────────────────────── */
+    const hamburger    = document.getElementById('hamburger');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+
+    function toggleMobile() {
+      if (!mobileDrawer || !hamburger) return; // Error guard
+
+      const isOpen = mobileDrawer.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      
+      // Prevent body scroll when drawer is open
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    /* Mobile accordion toggle */
+    function toggleMobSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.classList.toggle('is-open');
+      }
+    }
+
+    /* ── 4. Donate Amount Toggle (With Null Safety) ─────────── */
     document.querySelectorAll('.amount-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        // Toggle active states safely
         document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        
+        // Target element safety check
         const label = document.querySelector('.donate-section .btn-cream');
-        const val = btn.textContent === 'Other' ? '' : btn.textContent;
-        if (val) label.textContent = `Donate ${val} now`;
+        if (label) {
+          const val = btn.textContent.trim() === 'Other' ? '' : btn.textContent.trim();
+          if (val) {
+            label.textContent = `Donate ${val} now`;
+          } else {
+            label.textContent = `Donate now`; // Default text if 'Other' is picked
+          }
+        }
       });
     });
 
-    // Scroll fade-in
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    /* ── 5. Scroll Fade-In Animation Engine ─────────────────── */
+    // Only runs if the browser supports IntersectionObserver (Modern Browsers)
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { 
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target); // Performance boost: stop observing once visible
+          }
+        });
+      }, { threshold: 0.12 });
+      
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
   </script>
 </body>
 </html>
