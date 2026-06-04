@@ -39,12 +39,8 @@
       background: var(--white);
       color: var(--charcoal);
       line-height: 1.65;
-      outline: 3px solid red;
     }
 
-    body > * {
-  outline: 3px solid blue;
-}
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
@@ -641,6 +637,30 @@
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
     .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ─── FULL-WIDTH DEBUG  ──────────────────────────── */
+
+    html,
+    body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    body {
+      min-height: 100vh;
+    }
+    
+    /* Force main sections to touch viewport edges */
+    .top-bar,
+    .site-header,
+    .hero {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+ 
   </style>
 </head>
 <body>
