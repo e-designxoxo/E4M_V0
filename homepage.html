@@ -106,7 +106,7 @@
     .top-bar {
       background:    var(--green);
       color:         var(--cream);
-      height:        var(--topbar-h)
+      height:        var(--topbar-h);
       font-size:     0.78rem;
       padding:       0.45rem 0;
     }
@@ -163,25 +163,61 @@
     /* ═══════════════════════════════════════════════════════════════
      NAVBAR LOGIC & DESIGN  ── V0 Branding + V1 structure 
      ═══════════════════════════════════════════════════════════════ */
-    /* ═══════════════════════════════════════════════════════════════
-     NAVBAR (FIXED ENGINE)
-     ═══════════════════════════════════════════════════════════════ */
-  .navbar { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--silver); height: var(--nav-h); transition: box-shadow var(--ease); }
-  .navbar.is-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
-  .navbar .container  { height: 100%; display: flex; align-items: center; justify-content: space-between; 
+  .navbar { 
+    position: sticky; 
+    top: 0; 
+    z-index: 200; 
+    background: var(--white); 
+    border-bottom: 1px solid var(--silver); 
+    height: var(--nav-h); 
+    transition: box-shadow var(--ease); 
+  }
+  .navbar.is-scrolled { 
+    box-shadow: 0 2px 20px rgba(0,0,0,.08); 
+  }
+  .navbar .container  { 
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
   }
 
-  /* Logo Grouping */
-  .navbar__logo { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; 
+  /* ═══════════ LOGO GROUP ═══════════ */
+  .navbar__logo {
+    display: flex; 
+    align-items: center; 
+    gap: 0.6rem; 
+    flex-shrink: 0;
+    text-decoration: none;
   }
-  .logo-circle {
-    width: 44px; height: 44px; border-radius: 50%; background: var(--green);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--cream); font-size: .7rem; font-weight: 600; letter-spacing: .06em;
-    flex-shrink: 0; overflow: hidden;
+  .logo-circle-container {
+    width: 44px; 
+    height: 44px; 
+    border-radius: 50%; 
+    background: var(--green);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
   }
-  .logo-text { font-family: var(--font-display); font-size: .85rem; font-weight: 700; color: var(--green); line-height: 1.2; text-transform: uppercase; letter-spacing: .04em; }
+  .logo-text { 
+    font-family: var(--font-display); 
+    font-size: 0.85rem; 
+    font-weight: 700; 
+    color: var(--green); 
+    line-height: 1.2; 
+    text-transform: uppercase; 
+    letter-spacing: 0.04em; 
+  }
 
+
+/* D'OU CA SORT ?? 
+    color: var(--cream); 
+    font-size: .7rem; 
+    font-weight: 600; 
+    letter-spacing: 0.06em;
+    flex-shrink: 0; 
+    overflow: hidden;  */
+    
   /* Desktop List System */
   .nav__list { display: flex; align-items: center; height: 100%; gap: 0.2rem; margin-left: auto; 
              }
