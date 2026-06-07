@@ -7,6 +7,74 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
+ /* ═══════════════════════════════════════════════════════════════
+     DESIGN TOKENS  ── change only these to restyle everything
+     ═══════════════════════════════════════════════════════════════ */
+  :root {
+    --green:        #195301;
+    --cream:        #eeebd9;
+    --teal:         #006C65;
+    --charcoal:     #535353;
+    --silver:       #D5D5D5;
+    --white:        #ffffff;
+    /* Gold — Donate button hover */
+    --gold-bg:      #EFBF04;
+    --gold-text:    #856A00;
+    /* Typography */
+    --font-display: "Charter", Georgia, serif;
+    --font-body:    "Avenir Next", system-ui, sans-serif;
+    /* Layout */
+    --radius:       4px;
+    --radius-lg:    10px;
+    --max-w:        1160px;
+    --transition:   0.22s ease;
+    --transition2:  0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+    --nav-h:        85px;
+    --topbar-h:     30px;
+    --r:            4px;
+    --r-lg:         10px;
+    --ease:         0.22s ease;
+
+    /* Small Compatibility Bridge - in case */
+    --r: var(--radius);
+    --r-lg: var(--radius-lg);
+    --ease: var(--transition);
+    --nav-h: 92px;
+    --topbar-h: 40px;
+  }
+
+  /* ═══════════ RESET ═══════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html   { scroll-behavior: smooth; }
+  body   { font-family: var(--font-body); background: var(--white); color: var(--charcoal); line-height: 1.65; }
+  img    { display: block; max-width: 100%; }
+  a      { text-decoration: none; color: inherit; }
+  ul     { list-style: none; }
+  button { font-family: var(--font-body); cursor: pointer; border: none; background: none; }
+
+  /* ═══════════ UTILITIES ═══════════ */
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+  .btn { display: inline-block; padding: .75rem 1.75rem; border-radius: var(--r); font-weight: 500; font-size: .95rem; cursor: pointer; transition: background var(--ease), color var(--ease), transform var(--ease); }
+  .btn:hover          { transform: translateY(-2px); }
+  .btn-primary        { background: var(--green); color: var(--cream); }
+  .btn-primary:hover  { background: #1f6701; }
+  .btn-outline        { border: 2px solid var(--green); color: var(--green); }
+  .btn-outline:hover  { background: var(--green); color: var(--cream); }
+  .btn-cream          { display: inline-block; padding: .65rem 1.5rem; border-radius: var(--r); background: var(--cream); color: var(--green); font-weight: 600; font-size: .9rem; transition: background var(--ease), transform var(--ease); }
+  .btn-cream:hover    { background: var(--white); transform: translateY(-2px); }
+  .section-label { display: block; font-size: .72rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--teal); margin-bottom: .75rem; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--green); line-height: 1.2; margin-bottom: 1.1rem; }
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .55s ease, transform .55s ease; }
+  .fade-up.visible { opacity: 1; transform: none; }
+
+
+
+
+
+
+
+    
 /* ═══════════════════════════════════════════════════════════════
      TOP BAR
      ═══════════════════════════════════════════════════════════════ */
@@ -138,44 +206,259 @@
   }   
 </style>
 </head>
+  
 <body>
+  <!-- ════════ TOP BAR ════════ -->
 
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="container">
-      <span>UK Registered Charity #1167115 &nbsp;·&nbsp; Malagasy NGO &nbsp;· &nbsp; Association France SIREN 85242793900016</span>
-      <div class="lang-switch">
-        <a href="#" class="is-active">EN</a>
-        <a href="#">FR</a>
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) HTML FROM V1: TOP BAR + NAVBAR + MOBILE DRAWER
+<div class="top-bar">
+  <div class="container">
+    <div class="top-bar__info">
+      <span>UK Charity #1167115</span>
+      <span class="top-bar__dot">·</span>
+      <span>Malagasy NGO</span>
+      <span class="top-bar__dot">·</span>
+      <span>Association France SIREN 85242793900016</span>
+      <span class="top-bar__dot">·</span>
+      <span>Association Suisse</span>
+    </div>
+    <nav class="lang-switch" aria-label="Language switcher">
+      <a href="index.html"    class="lang-switch__btn is-active" lang="en">EN</a>
+      <a href="index-fr.html" class="lang-switch__btn"           lang="fr">FR</a>
+    </nav>
+  </div>
+</div>
+
+
+
+
+<!-- ════════ NAVBAR ════════ -->
+<header class="navbar" id="navbar" role="banner">
+  <div class="container">
+
+    <a href="index.html" class="navbar__logo" aria-label="Education for Madagascar — home">
+      <div class="logo-circle" aria-hidden="true">E4M</div>
+      <span class="logo-text">Education<br>for Madagascar</span>
+    </a>
+
+    <ul class="nav__list" role="list">
+
+      <!-- WHO WE ARE -->
+      <li class="nav__item" id="ni-who">
+        <button class="nav__link" aria-haspopup="true" aria-expanded="false" onclick="toggleNav('ni-who')">
+          Who we are <span class="nav__chevron" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown">
+          <a class="dropdown__link" href="who-we-are/our-story.html">
+            Our story<span class="dropdown__sub">History &amp; founding vision</span>
+          </a>
+          <a class="dropdown__link" href="who-we-are/team.html">
+            Team &amp; board<span class="dropdown__sub">The people behind E4M</span>
+          </a>
+          <a class="dropdown__link" href="who-we-are/governance.html">
+            Governance &amp; statutes<span class="dropdown__sub">Legal structure &amp; founding documents</span>
+          </a>
+          <div class="dropdown__separator"></div>
+          <a class="dropdown__link" href="who-we-are/annual-reports.html">
+            Annual reports<span class="dropdown__sub">Financial transparency, year by year</span>
+          </a>
+          <a class="dropdown__link" href="who-we-are/partners.html">
+            Our partners<span class="dropdown__sub">Foundations, sponsors &amp; institutions</span>
+          </a>
+        </div>
+      </li>
+
+      <!-- OUR PROJECTS -->
+      <li class="nav__item" id="ni-proj">
+        <button class="nav__link is-active" aria-haspopup="true" aria-expanded="false" onclick="toggleNav('ni-proj')">
+          Our projects <span class="nav__chevron" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown--mega">
+          <div class="mega__col">
+            <p class="mega__heading mega__heading--edu">Education</p>
+            <a class="mega__link" href="projects/education/akka.html">AKKA Montessori <span class="badge badge--age">3–6 yrs</span></a>
+            <a class="mega__link" href="projects/education/kanto.html">KANTO Culture <span class="badge badge--age">7–12 yrs</span></a>
+            <a class="mega__link" href="projects/education/care.html">CARE Coding &amp; Robotics</a>
+            <a class="mega__link" href="projects/education/scola.html">SCOLA Scholarship <span class="badge badge--age">18+</span></a>
+            <a class="mega__link" href="projects/education/tuto.html">TUTO</a>
+            <a class="mega__link" href="projects/education/vim.html">VIM — Volunteering <span class="badge badge--int">Intl.</span></a>
+            <a class="mega__link" href="projects/education/cad.html">Career Day Awareness</a>
+            <a class="mega__link" href="projects/education/unesco.html">UNESCO Partnership <span class="badge badge--new">New</span></a>
+          </div>
+          <div class="mega__col">
+            <p class="mega__heading mega__heading--health">Health</p>
+            <a class="mega__link" href="projects/health/women.html">School for Women</a>
+            <a class="mega__link" href="projects/health/fody.html">FODY</a>
+            <a class="mega__link" href="projects/health/tomady.html">TOMADY</a>
+            <div class="mega__col-gap"></div>
+            <p class="mega__heading mega__heading--env">Environment</p>
+            <a class="mega__link" href="projects/environment/silva.html">SILVA</a>
+            <a class="mega__link" href="projects/environment/wash.html">WASH</a>
+            <a class="mega__link" href="projects/environment/permada.html">PERMADA</a>
+          </div>
+          <div class="mega__col">
+            <p class="mega__heading mega__heading--edu">Overview</p>
+            <p class="mega__summary">13 active projects across education, health, and the environment — serving children aged 3 to 18 and women in rural Madagascar.</p>
+            <a class="mega__all-link" href="projects/index.html">All projects →</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- GET INVOLVED -->
+      <li class="nav__item" id="ni-inv">
+        <button class="nav__link" aria-haspopup="true" aria-expanded="false" onclick="toggleNav('ni-inv')">
+          Get involved <span class="nav__chevron" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown">
+          <a class="dropdown__link" href="get-involved/volunteer.html">
+            Volunteer (VIM)<span class="dropdown__sub">Live &amp; work in Madagascar</span>
+          </a>
+          <a class="dropdown__link" href="get-involved/donate.html">
+            Donate<span class="dropdown__sub">Fund our programmes directly</span>
+          </a>
+          <div class="dropdown__separator"></div>
+          <a class="dropdown__link" href="get-involved/partner.html">
+            Become a partner<span class="dropdown__sub">Corporate sponsors &amp; foundations</span>
+          </a>
+        </div>
+      </li>
+
+      <!-- MEDIA -->
+      <li class="nav__item" id="ni-media">
+        <button class="nav__link" aria-haspopup="true" aria-expanded="false" onclick="toggleNav('ni-media')">
+          Media <span class="nav__chevron" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown">
+          <a class="dropdown__link" href="media/blog.html">
+            Blog<span class="dropdown__sub">Stories, insights &amp; field updates</span>
+          </a>
+          <a class="dropdown__link" href="media/newsletters.html">
+            Newsletters<span class="dropdown__sub">Subscribe to our updates</span>
+          </a>
+          <div class="dropdown__separator"></div>
+          <a class="dropdown__link" href="who-we-are/annual-reports.html">
+            Annual reports<span class="dropdown__sub">Financial &amp; impact transparency</span>
+          </a>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="nav__actions">
+      <a href="#shop" class="btn-shop">The Shop ↗</a>
+      <a href="get-involved/donate.html" class="btn-donate">Donate</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMobile()">
+      <span class="hamburger__bar"></span>
+      <span class="hamburger__bar"></span>
+      <span class="hamburger__bar"></span>
+    </button>
+
+  </div>
+</header>
+
+
+<!-- ════════ MOBILE DRAWER ════════ -->
+<nav class="mobile-drawer" id="mobile-drawer" aria-label="Mobile navigation">
+
+  <div class="mob-section" id="mob-who">
+    <button class="mob-section__toggle" onclick="toggleMobSection('mob-who')">
+      Who we are <span class="nav__chevron" aria-hidden="true"></span>
+    </button>
+    <div class="mob-section__content">
+      <a class="mob-link" href="who-we-are/our-story.html">Our story</a>
+      <a class="mob-link" href="who-we-are/team.html">Team &amp; board</a>
+      <a class="mob-link" href="who-we-are/governance.html">Governance &amp; statutes</a>
+      <a class="mob-link" href="who-we-are/annual-reports.html">Annual reports</a>
+      <a class="mob-link" href="who-we-are/partners.html">Our partners</a>
     </div>
   </div>
 
-  <!-- NAVBAR -->
-<header class="navbar" id="navbar">
-    <div class="container">
-      <a href="#" class="navbar-logo">
-        <div class="logo-circle-container">
-          <img src="images/logo_mini.jpeg" alt="EDU4MADA Mini Logo" class="navbar-brand-img">
-        </div>
-        <span class="navbar-brand-text">Education<br>for Madagascar</span>
-      </a>
-      <nav> 
-        <ul>
-          <li><a href="#" class="active">Home</a></li>
-          <li><a href="#projects">Our Projects</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#shop">The Shop</a></li>
-          <li><a href="#volunteer">Volunteer</a></li>
-          <li><a href="#about">About us</a></li>
-          <li><a href="#donate" class="nav-donate">Donate</a></li>
-        </ul>
-      </nav>
-      <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+
+
+
+
+
+
+  <div class="mob-section" id="mob-proj">
+    <button class="mob-section__toggle" onclick="toggleMobSection('mob-proj')">
+      Our projects <span class="nav__chevron" aria-hidden="true"></span>
+    </button>
+    <div class="mob-section__content">
+      <div class="mob-subheading">Education</div>
+      <a class="mob-link" href="projects/education/akka.html">AKKA Montessori <span class="badge badge--age">3–6</span></a>
+      <a class="mob-link" href="projects/education/kanto.html">KANTO Culture <span class="badge badge--age">7–12</span></a>
+      <a class="mob-link" href="projects/education/care.html">CARE Coding &amp; Robotics</a>
+      <a class="mob-link" href="projects/education/scola.html">SCOLA Scholarship</a>
+      <a class="mob-link" href="projects/education/tuto.html">TUTO</a>
+      <a class="mob-link" href="projects/education/vim.html">VIM — Volunteering</a>
+      <a class="mob-link" href="projects/education/cad.html">Career Day Awareness</a>
+      <a class="mob-link" href="projects/education/unesco.html">UNESCO Partnership</a>
+      <div class="mob-subheading mob-subheading--health">Health</div>
+      <a class="mob-link" href="projects/health/women.html">School for Women</a>
+      <a class="mob-link" href="projects/health/fody.html">FODY</a>
+      <a class="mob-link" href="projects/health/tomady.html">TOMADY</a>
+      <div class="mob-subheading mob-subheading--env">Environment</div>
+      <a class="mob-link" href="projects/environment/silva.html">SILVA</a>
+      <a class="mob-link" href="projects/environment/wash.html">WASH</a>
+      <a class="mob-link" href="projects/environment/permada.html">PERMADA</a>
     </div>
-  </header>
+  </div>
+
+  <div class="mob-section" id="mob-inv">
+    <button class="mob-section__toggle" onclick="toggleMobSection('mob-inv')">
+      Get involved <span class="nav__chevron" aria-hidden="true"></span>
+    </button>
+    <div class="mob-section__content">
+      <a class="mob-link" href="get-involved/volunteer.html">Volunteer (VIM)</a>
+      <a class="mob-link" href="get-involved/donate.html">Donate</a>
+      <a class="mob-link" href="get-involved/partner.html">Become a partner</a>
+    </div>
+  </div>
+
+  <div class="mob-section" id="mob-media">
+    <button class="mob-section__toggle" onclick="toggleMobSection('mob-media')">
+      Media <span class="nav__chevron" aria-hidden="true"></span>
+    </button>
+    <div class="mob-section__content">
+      <a class="mob-link" href="media/blog.html">Blog</a>
+      <a class="mob-link" href="media/newsletters.html">Newsletters</a>
+      <a class="mob-link" href="who-we-are/annual-reports.html">Annual reports</a>
+    </div>
+  </div>
+
+  <div class="mob-actions">
+    <a href="#shop"                    class="btn-shop">The Shop ↗</a>
+    <a href="get-involved/donate.html" class="btn-donate">Donate</a>
+  </div>
+
+</nav>
+
+
+
+
+
+
+
+  
+
+
+
+
 
   
   <!-- HERO -->
@@ -197,8 +480,9 @@
       </div>
       <div class="hero-media fade-up" style="transition-delay:0.15s">
         <div class="img-placeholder">
-          <!-- Replace with <img src="hero-photo.jpg" alt="Children at AKKA school"> -->
-          Hero photo here
+<!-- Replace with <img src="hero-photo.jpg" alt="Children at AKKA school"-->
+<!-- ========= HERO PHOTO HERE ========= -->
+<!-- ========= HERO PHOTO HERE ========= -->
         </div>
         <div class="badge">
           <div class="num">10</div>
